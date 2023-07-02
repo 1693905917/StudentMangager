@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans.xsd
+http://www.springframework.org/schema/tx
+http://www.springframework.org/schema/tx/spring-tx.xsd
+http://www.springframework.org/schema/aop
+http://www.springframework.org/schema/aop/spring-aop.xsd
+http://www.springframework.org/schema/context
+http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!--配置RoleDao-->
+    <bean id="roleDao" class="com.itheima.dao.impl.RoleDaoImpl">
+        <property name="jdbcTemplate" ref="jdbcTemplate"></property>
+    </bean>
+    <!--配置RoleService-->
+    <bean id="roleService" class="com.itheima.service.impl.RoleServiceImpl">
+        <property name="roleDao" ref="roleDao"></property>
+    </bean>
+
+    <!--配置UserDao-->
+    <bean id="userDao" class="com.itheima.dao.impl.UserDaoImpl">
+        <property name="jdbcTemplate" ref="jdbcTemplate"></property>
+    </bean>
+
+    <!--配置UserService-->
+    <bean id="userService" class="com.itheima.service.impl.UserServiceImpl">
+        <property name="userDao" ref="userDao"></property>
+        <property name="roleDao" ref="roleDao"></property>
+    </bean>
+
+    <!--    &lt;!&ndash;组件扫描  扫描service和mapper&ndash;&gt;-->
+    <!--    <context:component-scan base-package="com.itheima">-->
+    <!--        &lt;!&ndash;排除对于controller的扫描  因为spring-mvc负责controller包的扫描控制&ndash;&gt;-->
+    <!--        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>-->
+    <!--    </context:component-scan>-->
+
+
+    <!--1.加载jdbc.properties文件-->
+    <context:property-placeholder location="classpath:jdbc.properties"></context:property-placeholder>
+
+
+    <!--2.配置数据源对象-->
+    <bean id="comboPooledDataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+        <property name="driverClass" value="${jdbc.driver}"></property>
+        <property name="jdbcUrl" value="${jdbc.url}"></property>
+        <property name="user" value="${jdbc.user}"></property>
+        <property name="password" value="${jdbc.password}"></property>
+    </bean>
+
+    <!--3.配置jdbcTemplate对象-->
+    <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+        <property name="dataSource" ref="comboPooledDataSource"></property>
+    </bean>
+
+    <!--&lt;!&ndash;    4.配置SqlSessionFactory&ndash;&gt;-->
+    <!--    <bean id="sessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">-->
+    <!--        <property name="dataSource" ref="comboPooledDataSource"></property>-->
+    <!--        <property name="configLocation" value="classpath:sqlMapConfig.xml"></property>-->
+    <!--    </bean>-->
+    <!--    &lt;!&ndash;5.扫描napper所在的包为mapper创建实现类&ndash;&gt;-->
+    <!--    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">-->
+    <!--        <property name="basePackage" value="classpath:com.itheima.mapper"></property>-->
+    <!--    </bean>-->
+
+
+    <!--    &lt;!&ndash;配置平台事务管理器&ndash;&gt;-->
+    <!--    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">-->
+    <!--        <property name="dataSource" ref="comboPooledDataSource"></property>-->
+    <!--    </bean>-->
+    <!--    &lt;!&ndash;通知 事务的增强&ndash;&gt;-->
+    <!--    <tx:advice id="txAdvice" transaction-manager="transactionManager">-->
+    <!--        <tx:attributes>-->
+    <!--            <tx:method name="*"/>-->
+    <!--        </tx:attributes>-->
+    <!--    </tx:advice>-->
+
+    <!--    &lt;!&ndash;    配置事务的aop织入&ndash;&gt;-->
+    <!--    <aop:config>-->
+    <!--        <aop:advisor advice-ref="txAdvice" pointcut="execution(* com.itheima.service.impl.*.*(..))"></aop:advisor>-->
+    <!--    </aop:config>-->
+
+
+</beans>

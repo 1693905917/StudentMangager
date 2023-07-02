@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+">
+
+    <!--1.注册mvc注解驱动-->
+    <mvc:annotation-driven></mvc:annotation-driven>
+
+    <!--2.配置视图解析器-->
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/pages/"></property>
+        <property name="suffix" value=".jsp"></property>
+    </bean>
+
+    <!--3.静态资源权限开发-->
+    <mvc:default-servlet-handler></mvc:default-servlet-handler>
+
+    <!--    4.注解扫描-->
+    <context:component-scan base-package="com.itheima.controller"></context:component-scan>
+
+    <!--5.配置拦截器-->
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <!--            需要拦截什么-->
+            <mvc:mapping path="/**"/>
+            <!--            不需要拦截什么-->
+            <mvc:exclude-mapping path="/user/login"/>
+            <bean class="com.itheima.interceptor.PrivilegeInterceptor"></bean>
+        </mvc:interceptor>
+    </mvc:interceptors>
+
+    <!--    6.1配置自定义异常-->
+    <!--    <bean class="com.itheima.resolver.MyExceptionResolver"></bean>-->
+    <!--    6.2配置简易异常-->
+    <bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+        <property name="defaultErrorView" value="error/404"></property>
+        <property name="exceptionMappings">
+            <map>
+                <entry key="com.itheima.exception.MyException" value="error/404"></entry>
+                <entry key="org.springframework.dao.EmptyResultDataAccessException" value="error/failer"></entry>
+            </map>
+        </property>
+    </bean>
+
+
+</beans>
