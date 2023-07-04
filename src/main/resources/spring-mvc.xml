@@ -38,15 +38,15 @@
     <!--    6.1配置自定义异常-->
     <!--    <bean class="com.itheima.resolver.MyExceptionResolver"></bean>-->
     <!--    6.2配置简易异常-->
-    <bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
-        <property name="defaultErrorView" value="error/404"></property>
-        <property name="exceptionMappings">
-            <map>
-                <entry key="com.itheima.exception.MyException" value="error/404"></entry>
-                <entry key="org.springframework.dao.EmptyResultDataAccessException" value="error/failer"></entry>
-            </map>
-        </property>
-    </bean>
+    <!--    <bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">-->
+    <!--        <property name="defaultErrorView" value="error/404"></property>-->
+    <!--        <property name="exceptionMappings">-->
+    <!--            <map>-->
+    <!--                <entry key="com.itheima.exception.MyException" value="error/404"></entry>-->
+    <!--                <entry key="org.springframework.dao.EmptyResultDataAccessException" value="error/failer"></entry>-->
+    <!--            </map>-->
+    <!--        </property>-->
+    <!--    </bean>-->
 
 
 </beans>

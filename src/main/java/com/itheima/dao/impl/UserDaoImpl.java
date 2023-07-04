@@ -2,11 +2,13 @@ package com.itheima.dao.impl;
 
 import com.itheima.dao.UserDao;
 import com.itheima.domain.User;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.stereotype.Repository;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -21,14 +23,14 @@ import java.util.List;
  * @Description: TODO
  * @Version: 1.0
  */
+@Repository("userDao")
 public class UserDaoImpl implements UserDao {
 
+    @Autowired
     private JdbcTemplate jdbcTemplate;
-
-
-    public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
-        this.jdbcTemplate = jdbcTemplate;
-    }
+    //public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
+//        this.jdbcTemplate = jdbcTemplate;
+//    }
 
     public List<User> findAll() {
         List<User> userList = jdbcTemplate.query("select * from sys_user", new BeanPropertyRowMapper<User>(User.class));

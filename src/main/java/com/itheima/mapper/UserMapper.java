@@ -1,9 +1,7 @@
 package com.itheima.mapper;
 
 import com.itheima.domain.User;
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 import org.springframework.dao.EmptyResultDataAccessException;
 
 import java.util.List;
@@ -18,23 +16,24 @@ import java.util.List;
  */
 public interface UserMapper {
 
-//    @Select(value = "select * from sys_user")
-//    List<User> findAll();
-//
-//    @Select(value = "select * from sys_user where username=? and password=?")
-//    User findByUsernameAndPassword(String username, String password) throws EmptyResultDataAccessException;
-//
-//    @Insert(value = "insert into sys_user values (?,?,?,?,?)")
-//    void save(final User user);
-//
-//    @Insert(value = "insert into sys_user_role values (?,?)")
-//    void saveByUserIdAndRoleId(Long id, Long[] roleId);
-//
-//    @Delete(value = "delete from sys_user_role where userId=?")
-//    void deleteUserRoleRelation(long userId);
-//
-//    @Delete(value = "delete from sys_user where id=?")
-//    void deleteUserById(long userId);
+    @Select(value = "select * from sys_user")
+    List<User> findAll();
+
+    @Select(value = "select * from sys_user where username=#{username} and password=#{password}")
+    User findByUsernameAndPassword(@Param("username") String username, @Param("password") String password) throws EmptyResultDataAccessException;
+
+    @Insert(value = "insert into sys_user values (#{id},#{username},#{email},#{password},#{phoneNum})")
+    @Options(useGeneratedKeys = true, keyProperty = "id", keyColumn = "id")
+    void save(User user);
+
+    @Insert(value = "insert into sys_user_role values (#{userId},#{roleId})")
+    void saveByUserIdAndRoleId(@Param("userId") Long userId, @Param("roleId") Long roleId);
+
+    @Delete(value = "delete from sys_user_role where userId=#{userId}")
+    void deleteUserRoleRelation(@Param("userId") long userId);
+
+    @Delete(value = "delete from sys_user where id=#{userId}")
+    void deleteUserById(@Param("userId") long userId);
 
 
 }

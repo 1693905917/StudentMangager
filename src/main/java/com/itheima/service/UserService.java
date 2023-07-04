@@ -22,8 +22,8 @@ public interface UserService {
      * @param:
      * @return:
      **/
+    //void save(User user, Long[] roleId);
     void save(User user, Long[] roleId);
-
     /*
      * @description:通过ID删除用户信息
      * @author:  HZP

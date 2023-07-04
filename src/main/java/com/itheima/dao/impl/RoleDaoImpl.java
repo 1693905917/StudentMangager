@@ -18,14 +18,16 @@ import java.util.List;
  * @Description: TODO
  * @Version: 1.0
  */
+@Repository("roleDao")
 public class RoleDaoImpl implements RoleDao {
 
+    @Autowired
     private JdbcTemplate jdbcTemplate;
 
 
-    public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
-        this.jdbcTemplate = jdbcTemplate;
-    }
+//    public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
+//        this.jdbcTemplate = jdbcTemplate;
+//    }
 
     public List<Role> findAll() {
         List<Role> roleList = jdbcTemplate.query("select * from sys_role", new BeanPropertyRowMapper<Role>(Role.class));

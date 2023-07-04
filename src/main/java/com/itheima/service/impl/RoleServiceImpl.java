@@ -2,7 +2,11 @@ package com.itheima.service.impl;
 
 import com.itheima.dao.RoleDao;
 import com.itheima.domain.Role;
+import com.itheima.mapper.RoleMapper;
 import com.itheima.service.RoleService;
+import org.omg.CORBA.PRIVATE_MEMBER;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -14,19 +18,22 @@ import java.util.List;
  * @Description: TODO
  * @Version: 1.0
  */
+@Service("roleService")
 public class RoleServiceImpl implements RoleService {
-    private RoleDao roleDao;
+    //private RoleDao roleDao;
+    @Autowired
+    private RoleMapper roleMapper;
 
-    public void setRoleDao(RoleDao roleDao) {
-        this.roleDao = roleDao;
-    }
+    //public void setRoleDao(RoleDao roleDao) {
+//        this.roleDao = roleDao;
+//    }
 
     public List<Role> list() {
-        List<Role> roleDaoAll = roleDao.findAll();
+        List<Role> roleDaoAll = roleMapper.findAll();
         return roleDaoAll;
     }
 
     public void save(Role role) {
-        roleDao.save(role);
+        roleMapper.save(role);
     }
 }

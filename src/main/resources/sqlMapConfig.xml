@@ -5,11 +5,11 @@
 
 <configuration>
 
-    <!--    取别名-->
-    <!--    <typeAliases>-->
-    <!--&lt;!&ndash;        当使用packagel时，只扫描当前包的话，也就是name是com.itheima.domain时，-->
-    <!--扫描出来的alias属性默认都是当前包下的实体名称的开头小写比如Account:实体就是account&ndash;&gt;-->
-    <!--        <package name="com.itheima.mapper"/>-->
-    <!--    </typeAliases>-->
+    <!--        取别名-->
+    <typeAliases>
+        <!--        当使用packagel时，只扫描当前包的话，也就是name是com.itheima.domain时，
+        扫描出来的alias属性默认都是当前包下的实体名称的开头小写比如Account:实体就是account-->
+        <package name="com.itheima.mapper"/>
+    </typeAliases>
 
 </configuration>

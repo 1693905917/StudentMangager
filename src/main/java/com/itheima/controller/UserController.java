@@ -48,8 +48,13 @@ public class UserController {
 
     @RequestMapping("/save")
     public String save(User user, Long[] roleId) {
+        //for (Long aLong : roleId) {
+        //userService.save(user, aLong);
+//            System.out.println("&&&&&&"+aLong);
+        //}
         userService.save(user, roleId);
-        //System.out.println("存储用户信息与角色信息成功......");
+
+        System.out.println("存储用户信息与角色信息成功......");
         return "redirect:/user/list";
     }
 
