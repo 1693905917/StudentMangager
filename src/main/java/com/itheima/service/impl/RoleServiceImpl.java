@@ -36,4 +36,11 @@ public class RoleServiceImpl implements RoleService {
     public void save(Role role) {
         roleMapper.save(role);
     }
+
+    public void deleteUserById(long roleId) {
+        //先删关系表
+        roleMapper.deleteUserRoleRelation(roleId);
+        //再删角色表
+        roleMapper.deleteRoleById(roleId);
+    }
 }

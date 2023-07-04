@@ -2,6 +2,7 @@ package com.itheima.mapper;
 
 import com.itheima.domain.Role;
 import javafx.scene.chart.ValueAxis;
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
@@ -27,4 +28,9 @@ public interface RoleMapper {
     public List<Role> findRoleByUserId(@Param("id") Long id);
 
 
+    @Delete(value = "delete from sys_user_role where roleId=#{roleId}")
+    void deleteUserRoleRelation(@Param("roleId") long roleId);
+
+    @Delete(value = "delete from sys_role where id=#{id}")
+    void deleteRoleById(@Param("id") long id);
 }

@@ -59,6 +59,14 @@
           href="${pageContext.request.contextPath}/plugins/ionslider/ion.rangeSlider.skinNice.css">
     <link rel="stylesheet"
           href="${pageContext.request.contextPath}/plugins/bootstrap-slider/slider.css">
+
+    <script>
+        function deleteRoleById(roleId) {
+            if (confirm("您确定是否删除?")) {
+                location.href = "${pageContext.request.contextPath}/role/delete/" + roleId;
+            }
+        }
+    </script>
 </head>
 
 <body class="hold-transition skin-blue sidebar-mini">
@@ -113,7 +121,8 @@
                                         <i class="fa fa-file-o"></i> 新建
                                     </button>
 
-                                    <button type="button" class="btn btn-default" title="刷新">
+                                    <button type="button" class="btn btn-default" title="刷新"
+                                            onclick="location.href='${pageContext.request.contextPath}/role/list'">
                                         <i class="fa fa-refresh"></i> 刷新
                                     </button>
                                 </div>
@@ -150,7 +159,7 @@
                                     <td>${role.roleName}</td>
                                     <td>${role.roleDesc}</td>
                                     <td class="text-center">
-                                        <a href="#" class="btn bg-olive btn-xs">删除</a>
+                                        <a href="#" class="btn bg-olive btn-xs" onclick="deleteRoleById('${role.id}')">删除</a>
                                     </td>
                                 </tr>
                             </c:forEach>

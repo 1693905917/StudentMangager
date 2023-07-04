@@ -4,6 +4,7 @@ import com.itheima.domain.Role;
 import com.itheima.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -42,6 +43,12 @@ public class RoleController {
     @RequestMapping("/save")
     public String save(Role role) {
         roleService.save(role);
+        return "redirect:/role/list";
+    }
+
+    @RequestMapping("/delete/{roleId}")
+    public String deleteUserById(@PathVariable("roleId") long roleId) {
+        roleService.deleteUserById(roleId);
         return "redirect:/role/list";
     }
 
